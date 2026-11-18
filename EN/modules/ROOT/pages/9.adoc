@@ -195,11 +195,15 @@ Specifies the LC_COLLATE setting to be used in this database.
 
 Specifies the LC_CTYPE setting to be used in this database.
 
+- `--builtin-locale=*locale*`
+
+Specifies the locale to use when the database uses the builtin locale provider. This option is only valid with the builtin provider.
+
 - `--icu-locale=*`locale`*`
 
 Specifies the ICU locale ID to be used in this database, if the ICU locale provider is selected.
 
-- `--locale-provider={libc|icu}`
+- `--locale-provider={builtin|libc|icu}`
 
 Specifies the locale provider for the database's default collation.
 

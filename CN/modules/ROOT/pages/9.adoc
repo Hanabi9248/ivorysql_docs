@@ -192,6 +192,14 @@ createdb接受下列命令行参数：
 
 指定要在这个数据库中使用的 LC_CTYPE 设置。
 
+- `--builtin-locale=*locale*`
+
+指定该数据库内置区域提供程序使用的区域设置。只有使用 `builtin` 作为区域提供程序时才能指定此选项。
+
+- `--locale-provider={builtin|libc|icu}`
+
+指定该数据库默认排序规则的区域提供程序。
+
 - `-O *owner*` `--owner=*owner*`
 
 指定拥有这个新数据库的数据库用户（这个名称被当做一个双引号引用的标识符处理）。
