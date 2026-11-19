@@ -4114,6 +4114,10 @@ display version information, then exit
 
 Use efficient file cloning (also known as “reflinks” on some systems) instead of copying files to the new cluster. This can result in near-instantaneous copying of the data files, giving the speed advantages of `-k`/`--link` while leaving the old cluster untouched.File cloning is only supported on some operating systems and file systems. If it is selected but not supported, the pg_upgrade run will error. At present, it is supported on Linux (kernel 4.5 or later) with Btrfs and XFS (on file systems created with reflink support), and on macOS with APFS.
 
+- `--no-statistics`
+
+Skip importing optimizer statistics from the old cluster.
+
 - `-?` `--help`
 
 show help, then exit
@@ -4290,7 +4294,7 @@ In general it is unsafe to access tables referenced in rebuild scripts until the
 ****
 15.**Statistics**
 
-Because optimizer statistics are not transferred by `pg_upgrade`, you will be instructed to run a command to regenerate that information at the end of the upgrade. You might need to set connection parameters to match your new cluster.
+`pg_upgrade` transfers most optimizer statistics to the new cluster by default. The transfer excludes statistics explicitly created with `CREATE STATISTICS`, custom statistics added by extensions, and statistics collected by the cumulative statistics system. At the end of the upgrade, `pg_upgrade` prints two `vacuumdb` commands to fill in missing optimizer statistics on the new cluster and refresh the cumulative statistics used to trigger vacuum and analyze. Set the connection parameters to match your new cluster.
 
 16.**Delete old cluster**
 

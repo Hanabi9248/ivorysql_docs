@@ -132,14 +132,15 @@ dnf install -y ivorysql5-{ivorysql-version}
 
 更新统计信息：
 
-pg_upgrade 会创建新的系统表，并重用旧的数据进行升级，统计信息并不会随升级过程迁移，所以在启用新版本之前，应该首先重新收集统计信息，避免没有统计信息导致错误的查询计划。
+`pg_upgrade` 默认迁移大部分优化器统计信息。指定 `--no-statistics` 时跳过导入。升级完成后，启动新集群并按 `pg_upgrade` 输出的提示补齐缺失的统计信息，再更新自动清理和自动分析所用的累计统计信息。
 启动新版本数据库
 ```
 /usr/ivory-5/bin/pg_ctl -D ./data -l logfile start
 ```
-手动运行vacuum命令
+使用新版本的 `vacuumdb` 执行以下命令：
 ```
-vacuum --all --analyze-in-stage -h 127.0.0.1 -p 1521
+/usr/ivory-5/bin/vacuumdb --all --analyze-in-stages --missing-stats-only -h 127.0.0.1 -p 1521
+/usr/ivory-5/bin/vacuumdb --all --analyze-only -h 127.0.0.1 -p 1521
 ```
 升级后清理
 ```

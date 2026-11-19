@@ -121,15 +121,16 @@ Seeing "Upgrade Complete" indicates that the upgrade has been successfully compl
 
 Update statistics:
 
-pg_upgrade creates new system tables and reuses old data for the upgrade. However, statistics are not migrated during the upgrade process. Therefore, before enabling the new version, you should first recollect statistics to avoid incorrect query plans caused by missing statistics.
+`pg_upgrade` transfers most optimizer statistics by default. Use `--no-statistics` to skip the import. After the upgrade, start the new cluster and follow the commands printed by `pg_upgrade` to fill in missing optimizer statistics and refresh the cumulative statistics used by autovacuum.
 
 Start the new version of the database.
 ```
 /usr/ivory-5/bin/pg_ctl -D ./data -l logfile start
 ```
-Manually run the vacuum command
+Run these commands using the new version's `vacuumdb`:
 ```
-vacuum --all --analyze-in-stage -h 127.0.0.1 -p 1521
+/usr/ivory-5/bin/vacuumdb --all --analyze-in-stages --missing-stats-only -h 127.0.0.1 -p 1521
+/usr/ivory-5/bin/vacuumdb --all --analyze-only -h 127.0.0.1 -p 1521
 ```
 Cleanup after upgrade
 ```
