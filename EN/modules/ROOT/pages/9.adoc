@@ -2072,7 +2072,7 @@ pg_isready — check the connection status of a IvorySQL server
 
 - `-d *dbname*` `--dbname=*dbname*`
 
-Specifies the name of the database to connect to. The *`dbname`* can be a http://www.postgresql.org/docs/17/libpq-connect.html#LIBPQ-CONNSTRING[connection string]. If so, connection string parameters will override any conflicting command line options.
+Specifies the name of the database to connect to. The *`dbname`* can be a http://www.postgresql.org/docs/17/libpq-connect.html#LIBPQ-CONNSTRING[connection string]. The connection string overrides conflicting host, port, and user options. The connection timeout comes from `-t` / `--timeout` and defaults to 3 seconds when the option is omitted.
 
 - `-h *hostname*` `--host=*hostname*`
 
