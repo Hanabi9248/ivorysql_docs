@@ -26,7 +26,7 @@ CREATE TABLE
 ```
 === Insert values into invisible columns
 
-You can insert a value into an invisible column only if you explicitly specify the invisible column in the column list for the INSERT statement. Omitting the column list in the INSERT statement is not allowed. Errors will be reported.
+To supply a value explicitly for an invisible column, name it in the `INSERT` target column list. When you omit the list, values are assigned to visible columns only. For example, `INSERT INTO mytable VALUES (4, 6)` assigns values to `a` and `c`. Column `b` gets its default value or `NULL` if it has no default. Omitted columns still have to satisfy constraints such as `NOT NULL`. The three-value example below fails because there are only two implicit target columns.
 ```
 ivorysql=# INSERT INTO mytable (a, b, c) VALUES (1,2,3);
 INSERT 0 1

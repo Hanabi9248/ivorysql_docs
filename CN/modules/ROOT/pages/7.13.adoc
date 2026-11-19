@@ -26,7 +26,7 @@ CREATE TABLE
 ```
 === 向不可见列插入值
 
-只有在INSERT语句中显式指定不可见列时，才能向不可见列插入值。向包含不可见列的表插入值时不能省略列列表，否则会报错。
+要显式为不可见列提供值，需要在 `INSERT` 的目标列列表中指定该列。省略目标列列表时，值只对应可见列。例如，`INSERT INTO mytable VALUES (4, 6)` 会为 `a` 和 `c` 赋值，`b` 使用默认值，没有默认值时使用 `NULL`。省略的列仍须满足 `NOT NULL` 等约束。下面的三值示例会报错，因为只有两个隐式目标列。
 ```
 ivorysql=# INSERT INTO mytable (a, b, c) VALUES (1,2,3);
 INSERT 0 1
