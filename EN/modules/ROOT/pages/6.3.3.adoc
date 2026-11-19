@@ -64,7 +64,7 @@ static const FormData_pg_attribute a7 = {
 };
 ```
 
-A boolean field `relhasrowid` has been added to the `pg_class` system table to indicate whether the `WITH ROWID` option was specified during table creation. If the `WITH ROWID` option is included when creating a table, `relhasrowid` is set to `t`; otherwise, it is set to `f`.  
+The Boolean field `pg_class.relhasrowid` records whether the table has ROWID enabled. For an ordinary `CREATE TABLE` in Oracle-compatible mode, `WITH ROWID` sets it to `t` and `WITHOUT ROWID` sets it to `f`. If neither clause is specified, the field follows the current session's `ivorysql.default_with_rowids` setting.
 This value is also updated when a user executes the `ALTER TABLE … SET WITH ROWID` or `ALTER TABLE … SET WITHOUT ROWID` command.
 
 ```

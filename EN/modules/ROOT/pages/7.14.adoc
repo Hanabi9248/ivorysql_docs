@@ -43,7 +43,7 @@ Access method: heap
 ```
 === Enable the functionality by adding the `WITH ROWID` option in the table creation statement.
 
-Users can choose to include this option for tables that require it; without the `WITH ROWID` option, a regular table will be created.
+For an ordinary `CREATE TABLE` in Oracle-compatible mode, `WITH ROWID` enables ROWID and `WITHOUT ROWID` disables it. Either explicit clause overrides `ivorysql.default_with_rowids`. If neither clause is specified, the table uses the current session's setting.
 
 ```
 ivorysql=# create table t2(a int) with rowid;

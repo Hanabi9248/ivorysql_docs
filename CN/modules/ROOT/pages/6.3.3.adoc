@@ -64,7 +64,7 @@ static const FormData_pg_attribute a7 = {
 };
 ```
 
-在pg_class系统表中增加一个 bool 类型的字段 relhasrowid，用于标识建表时的 WITH ROWID选项，如果建表时带了WITH ROWID选项，则 relhasrowid为 t，否则为f。
+`pg_class.relhasrowid` 是布尔字段，记录该表是否启用了 ROWID。在 Oracle 兼容模式下，普通 `CREATE TABLE` 显式指定 `WITH ROWID` 时该字段为 `t`，指定 `WITHOUT ROWID` 时为 `f`。两种子句均未指定时，该字段取决于当前会话的 `ivorysql.default_with_rowids` 设置。
 用户在执行 ALTER table … SET WITH ROWID/ WITHOUT ROWID 命令时，也会修改这个值。
 
 ```
