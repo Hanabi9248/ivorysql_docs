@@ -27,7 +27,7 @@ PostgreSQL已支持GB18030-2000版本作为客户端编码，通过扩展的方�
 
 设置一个全局变量is_load_gb18030_2022,默认为true,当用户指定-E选项时,在get_encoding_id中判断其设置的是否为gb18030_2022,如果是,将其字符串转为gb18030,然后将is_load_gb18030_2022 设为true,如果-E 选项为Gb18030,将其设为false。
 
-在适当位置判断是否要加载插件,如果是,执行load_gb18030_2022,并将ivorysql.conf中的shared_preload_library添加gb18030_2022。
+该标志启用时，initdb 调用 `load_gb18030_2022` 创建扩展，并将 `gb18030_2022` 加入 `shared_preload_libraries`。PG 模式写入 `postgresql.conf`，Oracle 模式写入 `ivorysql.conf`。
 
 ```
 if (encoding_name && *encoding_name)
