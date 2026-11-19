@@ -481,7 +481,7 @@ cat filename* | psql dbname
 如果使用GNU split，可能会把它和gzip一起使用：
 
 ----
-pg_dump dbname | split -b 2G -−filter='gzip > $FILE.gz'
+pg_dump dbname | split -b 2G --filter='gzip > $FILE.gz'
 ----
 
 它可以使用zcat恢复。

@@ -440,7 +440,7 @@ Reload with:
 
 If using GNU split, it is possible to use it and gzip together:
 
-    pg_dump dbname | split -b 2G -−filter='gzip > $FILE.gz'
+    pg_dump dbname | split -b 2G --filter='gzip > $FILE.gz'
 
 It can be restored using `zcat`.
 
