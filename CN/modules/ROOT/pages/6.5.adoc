@@ -56,7 +56,7 @@ pg_wchar2gb18030_with_len(const pg_wchar *from, unsigned char *to, int len) wcha
 
 pg_gb18030_mblen(const unsigned char *s)：返回 1/2/4。
 
-pg_gb18030_dsplen(const unsigned char *s)：ASCII 显示宽度 1；其它按 1 处理（与UTF8一致）。
+pg_gb18030_dsplen(const unsigned char *s)：非 ASCII 字符的显示宽度为 2；可打印 ASCII 字符为 1，NUL 为 0，其他 ASCII 控制字符为 -1。
 
 pg_gb18030_verifier(const unsigned char *s, int len)：校验字节范围，拒绝非法序列。
 

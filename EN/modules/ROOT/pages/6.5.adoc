@@ -54,7 +54,7 @@ pg_wchar2gb18030_with_len(const pg_wchar *from, unsigned char *to, int len) wcha
 
 pg_gb18030_mblen(const unsigned char *s)：Returns 1/2/4.
 
-pg_gb18030_dsplen(const unsigned char *s)：Calculates the display width of a character. ASCII characters have a width of 1, while others are also treated as having a width of 1 .
+pg_gb18030_dsplen(const unsigned char *s)：Returns a display width of 2 for non-ASCII characters. Printable ASCII characters have width 1, NUL has width 0, and other ASCII control characters return -1.
 
 pg_gb18030_verifier(const unsigned char *s, int len)：Verifies that a byte sequence is a valid GB18030 character, rejecting illegal sequences.
 
