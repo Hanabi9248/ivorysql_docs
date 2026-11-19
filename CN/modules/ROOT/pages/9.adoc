@@ -3557,7 +3557,11 @@ initdb — 创建一个新的IvorySQL数据库集簇
 
 - `-k` `--data-checksums`
 
-在数据页面上使用校验码来帮助检测 I/O 系统造成的损坏。 启用校验码将会引起显著的性能惩罚。 如果设置，则为所有对象计算校验和，在整个数据库中。 所有校验和失败都将报告在 http://www.postgresql.org/docs/17/monitoring-stats.html#MONITORING-PG-STAT-DATABASE-VIEW[ `pg_stat_database`] 视图。 
+启用数据页校验和，以检测 I/O 系统造成的损坏。`initdb` 默认在新集群中启用数据页校验和。启用后，集群的所有数据库都会使用校验和，校验失败会记录在 http://www.postgresql.org/docs/17/monitoring-stats.html#MONITORING-PG-STAT-DATABASE-VIEW[`pg_stat_database`] 视图中。启用校验和可能带来明显的性能开销。
+
+- `--no-data-checksums`
+
+初始化新集群时禁用数据页校验和。为 `pg_upgrade` 初始化目标集群时，校验和设置须与源集群一致。
 
 - `--locale=*locale*`
 

@@ -3265,7 +3265,11 @@ Specifies the ICU locale ID, if the ICU locale provider is used.
 
 - `-k` `--data-checksums`
 
-Use checksums on data pages to help detect corruption by the I/O system that would otherwise be silent. Enabling checksums may incur a noticeable performance penalty. If set, checksums are calculated for all objects, in all databases. All checksum failures will be reported in the http://www.postgresql.org/docs/17/monitoring-stats.html#MONITORING-PG-STAT-DATABASE-VIEW[`pg_stat_database`] view. 
+Enable data page checksums to help detect corruption by the I/O system. `initdb` enables data page checksums by default for new clusters. Checksums apply to all databases in the cluster, and failures are reported in the http://www.postgresql.org/docs/17/monitoring-stats.html#MONITORING-PG-STAT-DATABASE-VIEW[`pg_stat_database`] view. Enabling checksums may incur a noticeable performance cost.
+
+- `--no-data-checksums`
+
+Disable data page checksums when initializing a new cluster. When initializing a target for `pg_upgrade`, match the source cluster's checksum setting.
 
 - `--locale=*locale*`
 
