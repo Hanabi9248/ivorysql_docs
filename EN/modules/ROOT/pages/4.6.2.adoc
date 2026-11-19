@@ -2341,27 +2341,26 @@ Let's look at how IVYO allows you to enable monitoring in your cluster.
 
 === Adding the Exporter Sidecar
 
-Let's look at how we can add the IvorySQL Exporter sidecar to your cluster using the
-`kustomize/ivory` example in the https://github.com/CrunchyData/postgres-operator-examples[Postgres Operator examples] repository.
+Use the `examples/kustomize/ivory` example in the IvorySQL Operator repository to add the IvorySQL Exporter sidecar to your cluster.
 
 Monitoring tools are added using the `spec.monitoring` section of the custom resource. Currently,
 the only monitoring tool supported is the IvorySQL Exporter configured with https://github.com/CrunchyData/pgmonitor[pgMonitor].
 
-In the `kustomize/ivory/ivory.yaml` file, add the following YAML to the spec:
+In `examples/kustomize/ivory/ivory.yaml`, add the following YAML to the spec. This example uses the Linux/amd64 exporter image specified by the IvorySQL v5.6 release configuration. If you followed the earlier installation command, that installation overlay selects Operator v5.0. Before applying the configuration, choose an exporter image compatible with your installed Operator and database versions.
 
 [source,yaml]
 ----
 monitoring:
   pgmonitor:
     exporter:
-      image: {{< param imagePostgresExporter >}}
+      image: docker.io/ivorysql/postgres-exporter:ubi9-0.17.0-5.6-1
 ----
 
-Save your changes and run:
+Save your changes and run this command from the root of the IvorySQL Operator repository:
 
 [source,shell]
 ----
-kubectl apply -k kustomize/ivory
+kubectl apply -k examples/kustomize/ivory
 ----
 
 IVYO will detect the change and add the Exporter sidecar to all Ivory Pods that exist in your

@@ -1640,25 +1640,25 @@ spec:
 
 === 添加 Exporter Sidecar
 
-让我们看看如何使用 https://github.com/CrunchyData/postgres-operator-examples[Postgres Operator 示例] 仓库中的 `kustomize/ivory` 示例将 IvorySQL Exporter sidecar 添加到您的集群中。
+使用 IvorySQL Operator 仓库中的 `examples/kustomize/ivory` 示例，为集群添加 IvorySQL Exporter sidecar。
 
 监控工具是使用自定义资源的 `spec.monitoring` 部分添加的。目前，唯一支持的监控工具是使用 https://github.com/CrunchyData/pgmonitor[pgMonitor] 配置的 IvorySQL Exporter。
 
-在 `kustomize/ivory/ivory.yaml` 文件中，将以下 YAML 添加到规范中：
+在 `examples/kustomize/ivory/ivory.yaml` 文件中，将以下 YAML 添加到规范中。此示例使用 IvorySQL v5.6 发布配置指定的 Linux/amd64 Exporter 镜像。如果使用了前面的安装命令，该安装配置选择的是 Operator v5.0。应用配置前，请根据实际安装的 Operator 和数据库版本选择兼容的 Exporter 镜像。
 
 [source,yaml]
 ----
 monitoring:
   pgmonitor:
     exporter:
-      image: {{< param imagePostgresExporter >}}
+      image: docker.io/ivorysql/postgres-exporter:ubi9-0.17.0-5.6-1
 ----
 
-保存您的更改并运行：
+保存更改，然后从 IvorySQL Operator 仓库的根目录运行：
 
 [source,shell]
 ----
-kubectl apply -k kustomize/ivory
+kubectl apply -k examples/kustomize/ivory
 ----
 
 IVYO 将检测到更改并将 Exporter sidecar 添加到集群中存在的所有 Ivory Pod 中。IVYO 还将完成允许 Exporter 连接到数据库并使用 https://github.com/IvorySQL/ivory-operator/blob/master/docs/content/tutorial/monitoring.md#ivyo-monitoring[IVYO 监控] 堆栈收集指标的工作。
