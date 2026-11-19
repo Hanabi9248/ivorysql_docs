@@ -3399,6 +3399,10 @@ vacuumdb接受下列命令行参数：
 
 仅在事务ID 年龄至少为 *`xid_age`* 的表上执行清空或分析命令。 此设置对于确定要处理的表的优先级比较有用，以防止事务ID 回绕。对于此选项的用途，关系的事务ID年龄是主关系及其关联的TOAST表的年龄中最大的，如果存在的话。由于vacuumdb发出的命令在需要时还将处理TOAST表的关系，它无需单独考虑。
 
+- `--missing-stats-only`
+
+仅分析缺少列、索引表达式或扩展统计对象统计信息的关系。此选项只能与 `--analyze-only` 或 `--analyze-in-stages` 一起使用，要求服务器报告的版本为 15 或更高，并且用户需要拥有 `pg_statistic` 和 `pg_statistic_ext_data` 的 `SELECT` 权限。
+
 - `--no-index-cleanup`
 
 不移除指向死元组的索引条目。
