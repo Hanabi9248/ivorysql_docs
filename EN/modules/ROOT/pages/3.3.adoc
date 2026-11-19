@@ -147,13 +147,13 @@ The “autovacuum daemon” actually consists of multiple processes. There is a 
 
 If several large tables all become eligible for vacuuming in a short amount of time, all autovacuum workers might become occupied with vacuuming those tables for a long period. This would result in other tables and databases not being vacuumed until a worker becomes available. There is no limit on how many workers might be in a single database, but workers do try to avoid repeating work that has already been done by other workers. Note that the number of running workers does not count towards https://www.postgresql.org/docs/current/runtime-config-connection.html#GUC-MAX-CONNECTIONS[max_connections] or https://www.postgresql.org/docs/current/runtime-config-connection.html#GUC-SUPERUSER-RESERVED-CONNECTIONS[superuser_reserved_connections] limits.
 
-Tables whose `relfrozenxid` value is more than https://www.postgresql.org/docs/current/runtime-config-autovacuum.html#GUC-AUTOVACUUM-FREEZE-MAX-AGE[autovacuum_freeze_max_age] transactions old are always vacuumed (this also applies to those tables whose freeze max age has been modified via storage parameters; see below). Otherwise, if the number of tuples obsoleted since the last `VACUUM` exceeds the “vacuum threshold”, the table is vacuumed. The vacuum threshold is defined as:
+Tables whose `relfrozenxid` value is more than https://www.postgresql.org/docs/current/runtime-config-autovacuum.html#GUC-AUTOVACUUM-FREEZE-MAX-AGE[autovacuum_freeze_max_age] transactions old are always vacuumed (this also applies to those tables whose freeze max age has been modified via storage parameters; see below). Otherwise, if the number of tuples obsoleted since the last `VACUUM` exceeds the “vacuum threshold”, the table is vacuumed. When the effective maximum is 0 or higher, the vacuum threshold is:
 
 ```
-vacuum threshold = vacuum base threshold + vacuum scale factor * number of tuples
+vacuum threshold = min(vacuum max threshold, vacuum base threshold + vacuum scale factor * number of tuples)
 ```
 
-where the vacuum base threshold is https://www.postgresql.org/docs/current/runtime-config-autovacuum.html#GUC-AUTOVACUUM-VACUUM-THRESHOLD[autovacuum_vacuum_threshold], the vacuum scale factor is https://www.postgresql.org/docs/current/runtime-config-autovacuum.html#GUC-AUTOVACUUM-VACUUM-SCALE-FACTOR[autovacuum_vacuum_scale_factor], and the number of tuples is `pg_class`.`reltuples`.
+The vacuum base threshold is https://www.postgresql.org/docs/current/runtime-config-autovacuum.html#GUC-AUTOVACUUM-VACUUM-THRESHOLD[autovacuum_vacuum_threshold], the vacuum scale factor is https://www.postgresql.org/docs/current/runtime-config-autovacuum.html#GUC-AUTOVACUUM-VACUUM-SCALE-FACTOR[autovacuum_vacuum_scale_factor], and the number of tuples is `pg_class`.`reltuples`. The maximum threshold is `autovacuum_vacuum_max_threshold`, which defaults to `100000000` and can be overridden per table. An effective maximum of `-1` leaves the sum of the base threshold and the scaled tuple count uncapped.
 
 The table is also vacuumed if the number of tuples inserted since the last vacuum has exceeded the defined insert threshold, which is defined as:
 

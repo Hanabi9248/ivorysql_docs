@@ -145,13 +145,13 @@ IvorySQL有一个可选的但是被高度推荐的特性*autovacuum*，它的目
 
 如果在一小段时间内多个大型表都变得可以被清理，所有的自动清理工作者可能都会被占用来在一段长的时间内清理这些表。这将会造成其他的表和数据库无法被清理，直到一个工作者变得可用。对于一个数据库中的工作者数量并没有限制，但是工作者确实会试图避免重复已经被其他工作者完成的工作。注意运行着的工作者的数量不会被计入max_connections或superuser_reserved_connections限制。
 
-`relfrozenxid`值比autovacuum_freeze_max_age事务年龄更大的表总是会被清理（这页表示这些表的冻结最大年龄被通过表的存储参数修改过，参见后文）。否则，如果从上次`VACUUM`以来失效的元组数超过“清理阈值”，表也会被清理。清理阈值定义为：
+`relfrozenxid`值比autovacuum_freeze_max_age事务年龄更大的表总是会被清理（这页表示这些表的冻结最大年龄被通过表的存储参数修改过，参见后文）。否则，如果从上次`VACUUM`以来失效的元组数超过“清理阈值”，表也会被清理。当生效的阈值上限大于或等于 0 时，清理阈值定义为：
 
 ```
-清理阈值 = 清理基本阈值 + 清理缩放系数 * 元组数
+清理阈值 = min(清理阈值上限, 清理基本阈值 + 清理缩放系数 * 元组数)
 ```
 
-其中清理基本阈值为autovacuum_vacuum_threshold， 清理缩放系数为autovacuum_vacuum_scale_factor， 元组数为`pg_class`.`reltuples`。
+清理基本阈值为 `autovacuum_vacuum_threshold`，清理缩放系数为 `autovacuum_vacuum_scale_factor`，元组数取自 `pg_class.reltuples`。清理阈值上限由 `autovacuum_vacuum_max_threshold` 指定，默认值为 `100000000`，可按表覆盖。有效上限为 `-1` 时，不截断清理基本阈值与缩放项之和。
 
 如果自上次清理以来插入的元组数量超过了定义的插入阈值，表也会被清理，该阈值定义为:
 
