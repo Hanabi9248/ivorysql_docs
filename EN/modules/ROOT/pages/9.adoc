@@ -3745,6 +3745,10 @@ Manually set the next OID.There is no comparably easy way to determine a next OI
 
 Manually set the next multitransaction offset.A safe value can be determined by looking for the numerically largest file name in the directory `pg_multixact/members` under the data directory, adding one, and then multiplying by 52352 (0xCC80). The file names are in hexadecimal. There is no simple recipe such as the ones for other options of appending zeroes.
 
+- `--char-signedness=option`
+
+Set the default C `char` signedness recorded in the cluster control file. Valid values are `signed` and `unsigned`. This option is intended for `pg_upgrade` and should not normally be set manually.
+
 - `--wal-segsize=*wal_segment_size*`
 
 Set the new WAL segment size, in megabytes. The value must be set to a power of 2 between 1 and 1024 (megabytes). See the same option of http://www.postgresql.org/docs/17/app-initdb.html[initdb] for more information.NoteWhile `pg_resetwal` will set the WAL starting address beyond the latest existing WAL segment file, some segment size changes can cause previous WAL file names to be reused. It is recommended to use `-l` together with this option to manually set the WAL starting address if WAL file name overlap will cause problems with your archiving strategy.

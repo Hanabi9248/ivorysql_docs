@@ -4043,6 +4043,10 @@ pg_resetwal — 重置一个IvorySQL数据库集簇的预写式日志以及其�
 
 手工设置下一个多事务偏移量。确定安全值的方法：查找数据目录下 `pg_multixact/members` 目录中最大的数字文件名，然后在它的基础上加一并且乘以 52352 (0xCC80)。文件名是十六进制数字。没有像其他选项那样追加零的简单方法。
 
+- `--char-signedness=option`
+
+设置集簇控制文件中记录的 C `char` 默认符号属性。可选值为 `signed` 和 `unsigned`。此选项供 `pg_upgrade` 使用，通常不应手动设置。
+
 - `--wal-segsize=*wal_segment_size*`
 
 设置新的WAL段尺寸，以兆字节为单位。这个值必须被设为2的1次幂和1024次幂（兆字节）之间。更多信息请参考 http://www.postgresql.org/docs/17/app-initdb.html[initdb] 的相同选项。注意虽然 `pg_resetwal` 将把WAL起始地址设置成超过最新的现有WAL段文件，但一些段尺寸的改变可能导致之前的WAL文件名被重用。如果WAL文件名重叠会导致归档策略出现问题，推荐把 `-l` 和这个选项一起使用来手动设置WAL起始地址。
