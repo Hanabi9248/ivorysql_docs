@@ -2702,6 +2702,10 @@ pg_verifybackup accepts the following command-line arguments:
 
 Exit as soon as a problem with the backup is detected. If this option is not specified, `pg_verifybackup` will continue checking the backup even after a problem has been detected, and will report all problems detected as errors.
 
+- `-F` *`format`* `--format=`*`format`*
+
+Specify `p` or `plain` for a plain-format backup, or `t` or `tar` for a tar-format backup. If you omit this option, a `PG_VERSION` file at the root of the backup directory indicates plain format. Otherwise, `pg_verifybackup` assumes tar format. Tar-format verification requires `-n` (`--no-parse-wal`) because WAL parsing is available only for plain-format backups. For example, `pg_verifybackup -F tar -n /path/to/backup` checks the backup files in that directory against the manifest without parsing WAL.
+
 - `-i *path*` `--ignore=*path*`
 
 Ignore the specified file or directory, which should be expressed as a relative path name, when comparing the list of data files actually present in the backup to those listed in the `backup_manifest` file. If a directory is specified, this option affects the entire subtree rooted at that location. Complaints about extra files, missing files, file size differences, or checksum mismatches will be suppressed if the relative path name matches the specified path name. This option can be specified multiple times.
