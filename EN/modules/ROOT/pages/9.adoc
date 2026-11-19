@@ -4301,11 +4301,12 @@ Once you are satisfied with the upgrade, you can delete the old cluster's data d
 If, after running `pg_upgrade`, you wish to revert to the old cluster, there are several options:
 
     - If the `--check` option was used, the old cluster was unmodified; it can be restarted.
-    - If the `--link` option was *not* used, the old cluster was unmodified; it can be restarted.
+    - If neither `--link` nor `--swap` was used, as with default copy mode or `--clone`, the old cluster is unchanged and can be restarted.
     - If the `--link` option was used, the data files might be shared between the old and new cluster:
       * If `pg_upgrade` aborted before linking started, the old cluster was unmodified; it can be restarted.
       * If you did *not* start the new cluster, the old cluster was unmodified except that, when linking started, a `.old` suffix was appended to `$PGDATA/global/pg_control`. To reuse the old cluster, remove the `.old` suffix from `$PGDATA/global/pg_control`; you can then restart the old cluster.
       * If you did start the new cluster, it has written to shared files and it is unsafe to use the old cluster. The old cluster will need to be restored from backup in this case.
+    - If `--swap` was used, you can restart the old cluster if you have confirmed that the upgrade stopped before disabling the old cluster and transferring files. Once `pg_upgrade` reports that the old cluster is no longer safe to start, or file transfer has begun, leave the old cluster stopped. To revert, restore the old cluster from backup.
 
 #### Notes
 
