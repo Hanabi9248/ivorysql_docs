@@ -70,9 +70,9 @@ $ sudo systemctl stop firewalld
 ```
 
 === 搭建流复制
-在备节点上执行以下命令，创建一个主节点的基础备份，即搭建流复制：
+在备节点上，以负责运行 IvorySQL 的非 root 操作系统用户执行以下命令，创建主节点的基础备份。该用户必须能够创建目标数据目录，或者拥有现有的空目录并且可以写入其中。
 ```
-$ sudo pg_basebackup -F p -P -X fetch -R -h <primary_ip> -p <primary_port> -U ivorysql -D /usr/local/ivorysql/ivorysql-5/data 
+$ /usr/local/ivorysql/ivorysql-5/bin/pg_basebackup -F p -P -X fetch -R -h <primary_ip> -p <primary_port> -U ivorysql -D /usr/local/ivorysql/ivorysql-5/data
 ```
 - -h为主节点ip；
 - -p为主节点数据库端口号，默认为5432；
@@ -96,6 +96,7 @@ $ source ~/.bash_profile
 ```
 
 === 启动备节点数据库服务
+使用创建基础备份时的同一个操作系统用户启动备节点。
 ```
 $ pg_ctl -D /usr/local/ivorysql/ivorysql-5/data start
 ```

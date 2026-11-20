@@ -69,9 +69,9 @@ $ sudo systemctl stop firewalld
 ```
 
 === Building streaming replication
-Run below command on the standby node to take base backups of the primary, that is, to build a streaming replication:
+On the standby node, take the base backup of the primary as the non-root operating-system account that will run IvorySQL. This account must be able to create the target data directory or own an existing empty directory with write access.
 ```
-$ sudo pg_basebackup -F p -P -X fetch -R -h <primary_ip> -p <primary_port> -U ivorysql -D /usr/local/ivorysql/ivorysql-5/data 
+$ /usr/local/ivorysql/ivorysql-5/bin/pg_basebackup -F p -P -X fetch -R -h <primary_ip> -p <primary_port> -U ivorysql -D /usr/local/ivorysql/ivorysql-5/data
 ```
 - Specifies the host name of the machine on which the server is running;
 - Specifies the TCP port or local Unix domain socket file extension on which the server is listening for connections. Defaults is 5432;
@@ -95,8 +95,9 @@ $ source ~/.bash_profile
 ```
 
 === Starting IvorySQL sevice
+Start the standby as the same operating-system account that took the base backup.
 ```
-$ sudo pg_ctl -D /usr/local/ivorysql/ivorysql-5/data start
+$ pg_ctl -D /usr/local/ivorysql/ivorysql-5/data start
 ```
 
 == Experience the IvorySQL cluster
