@@ -170,6 +170,8 @@ IvorySQL will then be installed in the /usr/ivory-5/ directory.
 == Start Database
 Users following the instructions in <<Yum-installation>>, <<Rpm-installation>>, <<Source-code-installation>> and <<deb-installation>> need to manually start the database.
 
+The commands below use the package installation directory `/usr/ivory-5`. For a source installation, replace `/usr/ivory-5` in the commands and environment settings with the directory passed to `./configure --prefix`. The source installation example above uses `/usr/local/ivorysql/ivorysql-5`.
+
 ** Granting permissions
 
 Execute the following command to grant permissions to the installation user. The example user is ivorysql, and the installation directory is /usr/ivory-5/:

@@ -169,6 +169,8 @@ $ sudo dpkg -i IvorySQL-{ivorysql-version}-a50789d-20250304.amd64.deb
 == 启动数据库
 参考<<yum源安装>>、<<rpm安装>>、<<源码安装>>、<<deb安装>>的用户，需要手动启动数据库。
 
+以下命令使用软件包安装目录 `/usr/ivory-5`。如果从源码安装，请将本节命令和环境变量中的 `/usr/ivory-5` 替换为传给 `./configure --prefix` 的目录。上面的源码安装示例使用 `/usr/local/ivorysql/ivorysql-5`。
+
 ** 赋权
 
 +
