@@ -3424,6 +3424,8 @@ pg_checksums — enable, disable or check data checksums in a IvorySQL database 
 
 `pg_checksums` [*`option`*...] [[ `-D` | `--pgdata` ] *`datadir`*]
 
+The database server must be shut down cleanly before running `pg_checksums` in any mode, including the default `--check` mode.
+
 #### Options
 
 The following command-line options are available:

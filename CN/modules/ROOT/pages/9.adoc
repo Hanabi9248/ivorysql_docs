@@ -3718,6 +3718,8 @@ pg_checksums — 在IvorySQL数据库集簇中启用、禁用或检查数据校�
 
 `pg_checksums` [*`option`*...] [[ `-D` | `--pgdata` ] *`datadir`*]
 
+以任何模式运行 `pg_checksums` 前，都必须正常关闭数据库服务器。默认的 `--check` 模式也有这一要求。
+
 #### 选项
 
 下列命令选项可用：
