@@ -905,7 +905,7 @@ Selects the format for the output. *`format`* can be one of the following: `p` `
 
 - `-R` `--write-recovery-conf`
 
-Creates a http://www.postgresql.org/docs/17/warm-standby.html#FILE-STANDBY-SIGNAL[`standby.signal`] file and appends connection settings to the `IvorySQL.auto.conf` file in the target directory (or within the base archive file when using tar format). This eases setting up a standby server using the results of the backup.The `IvorySQL.auto.conf` file will record the connection settings and, if specified, the replication slot that pg_basebackup is using, so that streaming replication will use the same settings later on.
+Creates a http://www.postgresql.org/docs/17/warm-standby.html#FILE-STANDBY-SIGNAL[`standby.signal`] file and appends connection settings to the `postgresql.auto.conf` file in the target directory (or within the base archive file when using tar format). This eases setting up a standby server using the results of the backup.The `postgresql.auto.conf` file will record the connection settings and, if specified, the replication slot that pg_basebackup is using, so that streaming replication will use the same settings later on.
 
 - `-t *target*` `--target=*target*`
 
@@ -3803,7 +3803,7 @@ Specifies a libpq connection string to connect to the source IvorySQL server to 
 
 - `-R` `--write-recovery-conf`
 
-Create `standby.signal` and append connection settings to `IvorySQL.auto.conf` in the output directory. `--source-server` is mandatory with this option.
+Create `standby.signal` and append connection settings to `postgresql.auto.conf` in the output directory. `--source-server` is mandatory with this option.
 
 - `-n` `--dry-run`
 
@@ -4239,7 +4239,7 @@ If you did *not* use link mode, do not have or do not want to use rsync, or want
 
     5. **Save configuration files**
 
-       Save any configuration files from the old standbys' configuration directories you need to keep, e.g., `IvorySQL.conf` (and any files included by it), `IvorySQL.auto.conf`, `pg_hba.conf`, because these will be overwritten or removed in the next step.
+       Save any configuration files from the old standbys' configuration directories you need to keep, e.g., `IvorySQL.conf` (and any files included by it), `postgresql.auto.conf`, `pg_hba.conf`, because these will be overwritten or removed in the next step.
 
     6. **Run rsync**
 
@@ -4268,7 +4268,7 @@ If you did *not* use link mode, do not have or do not want to use rsync, or want
 ****
 12.**Restore `pg_hba.conf`**
 ****
-If you modified `pg_hba.conf`, restore its original settings. It might also be necessary to adjust other configuration files in the new cluster to match the old cluster, e.g., `IvorySQL.conf` (and any files included by it), `IvorySQL.auto.conf`.
+If you modified `pg_hba.conf`, restore its original settings. It might also be necessary to adjust other configuration files in the new cluster to match the old cluster, e.g., `IvorySQL.conf` (and any files included by it), `postgresql.auto.conf`.
 ****
 13.**Start the new server**
 ****
