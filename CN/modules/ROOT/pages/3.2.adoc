@@ -942,8 +942,12 @@ IvorySQL具有在命令执行过程中报告某些命令进度的能力。 目�
 | heap_blks_scanned | bigint | 被扫描的堆块数量。由于visibility map被用来优化扫描，一些块将被跳过而不做检查，被跳过的块会被包括在这个总数中，因此当清理完成时这个数字最终将会等于heap_blks_total。仅当处于扫描堆阶段时这个计数器才会前进。
 | heap_blks_vacuumed | bigint | 被清理的堆块数量。除非表没有索引，这个计数器仅在处于清理堆阶段时才会前进。不包含死亡元组的块会被跳过，因此这个计数器可能有时会向前跳跃一个比较大的增量。
 | index_vacuum_count | bigint | 已完成的索引清理周期数。
-| max_dead_tuples | bigint | 在需要执行一个索引清理周期之前我们可以存储的死亡元组数，取决于maintenance_work_mem。
-| num_dead_tuples | bigint | 从上一个索引清理周期以来收集的死亡元组数。
+| `max_dead_tuple_bytes` | `bigint` | 触发一次索引清理周期前，可用于存储死亡项的字节上限。
+| `dead_tuple_bytes` | `bigint` | 自上一个索引清理周期以来收集的死亡项所占字节数。
+| `num_dead_item_ids` | `bigint` | 自上一个索引清理周期以来收集的死亡项标识符数量。
+| `indexes_total` | `bigint` | 本次索引清理或整理阶段需要处理的索引总数。
+| `indexes_processed` | `bigint` | 本次索引清理或整理阶段已经处理的索引数量。
+| `delay_time` | `double precision` | 基于代价的延迟所累计的休眠时间，单位为毫秒。包括并行工作进程报告的休眠时间。关闭 `track_cost_delay_timing` 时为 0。
 |====
 
 **表37.VACUUM的阶段**
