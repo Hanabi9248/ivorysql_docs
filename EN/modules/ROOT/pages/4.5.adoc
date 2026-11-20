@@ -522,8 +522,10 @@ CREATE TEXT SEARCH CONFIGURATION en (COPY = pg_catalog.english);
 ALTER TEXT SEARCH CONFIGURATION en ALTER MAPPING FOR hword, hword_part, word WITH unaccent, english_stem;
 ```
 
+Save the adjusted `TABLE_sh.sql` as `tab.sql`, then import it into the `orcl` database.
+
 ```
-psql orcl  -f  tab.sql.sql
+psql -d orcl -f tab.sql
 
 ALTER TABLE PARTITION sh.sales OWNER TO sh;
 COMMENT
@@ -541,11 +543,18 @@ ALTER TABLE
 
 === Authorize objects
 
+Review `GRANT_sh.sql` and adapt it to the roles already present on the target. The script can contain statements such as these.
+
 ```
-cat psql orcl  -f  GRANT_sh.sql
 CREATE USER SH WITH PASSWORD 'change_my_secret' LOGIN;
 ALTER TABLE sh.fweek_pscat_sales_mv OWNER TO sh;
 GRANT ALL ON  sh.fweek_pscat_sales_mv TO sh;
+```
+
+Import the reviewed script into the `orcl` database.
+
+```
+psql -d orcl -f GRANT_sh.sql
 ```
 
 === Import materialized view structure

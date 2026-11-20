@@ -512,8 +512,10 @@ CREATE TEXT SEARCH CONFIGURATION en (COPY = pg_catalog.english);
 ALTER TEXT SEARCH CONFIGURATION en ALTER MAPPING FOR hword, hword_part, word WITH unaccent, english_stem;
 ```
 
+将调整后的 `TABLE_sh.sql` 保存为 `tab.sql`，然后导入到 `orcl` 数据库。
+
 ```
-psql orcl  -f  tab.sql
+psql -d orcl -f tab.sql
 
 ALTER TABLE PARTITION sh.sales OWNER TO sh;
 COMMENT
@@ -531,11 +533,18 @@ ALTER TABLE
 
 === 给对象授权
 
+检查 `GRANT_sh.sql`，并根据目标数据库中已有的角色调整脚本。以下是脚本中的语句示例。
+
 ```
-cat psql orcl  -f  GRANT_sh.sql
 CREATE USER SH WITH PASSWORD 'change_my_secret' LOGIN;
 ALTER TABLE sh.fweek_pscat_sales_mv OWNER TO sh;
 GRANT ALL ON  sh.fweek_pscat_sales_mv TO sh;
+```
+
+将检查后的脚本导入到 `orcl` 数据库。
+
+```
+psql -d orcl -f GRANT_sh.sql
 ```
 
 === 导入物化视图结构
