@@ -97,7 +97,7 @@ CATALOG(pg_force_view,9120,ForceViewRelationId)
 
 ==== 主动失效逻辑
 
-- `make_view_invalid()` 在依赖对象被 DROP/ALTER 等操作影响时调用。
+- 在 Oracle 兼容模式下，如果删除操作采用默认的 `RESTRICT` 行为，且所有需要 `CASCADE` 才能删除的依赖对象均为视图，系统会调用 `make_view_invalid()` 保留这些视图。删除时显式指定 `CASCADE` 会删除依赖视图。更改视图所引用列的类型也可能调用 `make_view_invalid()`。
 - 函数删除 `_RETURN` 规则、清理 `pg_depend` 依赖、重置 `pg_class.relhasrules` 并清空 `pg_attribute` 列信息。
 - 同步生成 `CREATE FORCE VIEW ... AS <pg_get_viewdef>` 文本写入 `pg_force_view`，`ident_case` 设置为 `IDENT_CASE_UNDEFINE` 表示该文本由系统构造。
 

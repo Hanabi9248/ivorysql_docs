@@ -96,7 +96,7 @@ CATALOG(pg_force_view,9120,ForceViewRelationId)
 
 ==== Active Invalidation Logic
 
-- `make_view_invalid()` is triggered when dependencies are dropped, altered, or otherwise compromised.
+- In Oracle compatibility mode, a drop using the default `RESTRICT` behavior calls `make_view_invalid()` when every dependent object that would require `CASCADE` is a view. Specifying `CASCADE` drops the dependent views. Changing the type of a column used by a view can also call `make_view_invalid()`.
 - The routine removes the `_RETURN` rule, clears `pg_depend` entries, resets `pg_class.relhasrules`, and truncates `pg_attribute` column metadata.
 - It also captures `CREATE FORCE VIEW ... AS <pg_get_viewdef>` and saves it in `pg_force_view`, while setting `ident_case` to `IDENT_CASE_UNDEFINE` to indicate the SQL is system-generated.
 

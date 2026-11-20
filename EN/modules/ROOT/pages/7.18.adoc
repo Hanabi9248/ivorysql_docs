@@ -15,7 +15,7 @@
 
 - `CREATE [OR REPLACE] FORCE VIEW`: Creates a view object even when the query references missing tables or functions. The system retains the SQL definition and returns the message `WARNING: View created with compilation errors`.
 - Automatic compilation: When a Force view is accessed, IvorySQL attempts recompilation. If it succeeds, the view becomes a normal view; if it fails, it raises `view "<schema>.<name>" has errors`.
-- Dependency fallback: When a normal view is invalidated because dependencies are removed or altered, IvorySQL automatically converts it into a Force view, preserving the latest valid definition so it can be restored quickly once dependencies are rebuilt.
+- Dependency fallback: In Oracle compatibility mode, a drop using the default `RESTRICT` behavior preserves dependent views as invalid Force views when every dependent object that would require `CASCADE` is a view. IvorySQL saves their definitions for later recompilation. Specifying `CASCADE` drops the dependent views. Changing the type of a column used by a view can also invalidate the view.
 
 == Test Cases
 

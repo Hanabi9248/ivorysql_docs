@@ -14,7 +14,7 @@
 
 - `CREATE [OR REPLACE] FORCE VIEW`：即使查询引用了不存在的表或函数，也会创建视图占位对象并保存原始 SQL，提示“View created with compilation errors”。
 - 自动编译：访问 Force View 时会尝试重新编译；成功后变为普通视图，失败则报错 `view "<schema>.<name>" has errors`。
-- 依赖失效回退：当普通视图因依赖对象被删除或结构变更而失效时，系统会自动将其转化为 Force View，保留最后一次有效定义以便后续恢复。
+- 依赖失效回退：在 Oracle 兼容模式下，如果删除操作采用默认的 `RESTRICT` 行为，且所有需要 `CASCADE` 才能删除的依赖对象均为视图，系统会保留这些视图，将其标记为无效的 Force View 并保存定义，供后续重新编译。删除时显式指定 `CASCADE` 会删除依赖视图。更改视图所引用列的类型也可能使视图失效。
 
 == 测试用例
 
