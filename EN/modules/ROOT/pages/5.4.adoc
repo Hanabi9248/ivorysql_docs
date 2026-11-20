@@ -34,7 +34,7 @@ make install
 # Shared preload extensions
 shared_preload_libraries = 'pg_cron'
 
-# Specify task metadata storage database (default current database)
+# Specify task metadata storage database (postgres by default)
 cron.database_name = 'ivorysql'
 
 # Maximum number of concurrent tasks allowed
@@ -50,7 +50,7 @@ pg_ctl restart -D ./data -l logfile
 
 === Create Extension and Confirm pg_cron Version
 
-Connect to the database with psql and execute the following commands:
+Use `psql` to connect to the database configured in `cron.database_name` (`ivorysql` in this example), then run the following commands.
 [literal]
 ----
 ivorysql=# CREATE extension pg_cron;

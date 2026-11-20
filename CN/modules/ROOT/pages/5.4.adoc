@@ -35,7 +35,7 @@ make install
 # 共享预加载扩展
 shared_preload_libraries = 'pg_cron'
 
-# 指定任务元数据存储库（默认当前库）
+# 指定任务元数据存储库（默认为 postgres）
 cron.database_name = 'ivorysql'
 
 # 允许的最大并发任务数
@@ -51,7 +51,7 @@ pg_ctl restart -D ./data -l logfile
 
 === 创建Extension并确认pg_cron版本
 
-psql 连接到数据库，执行如下命令：
+使用 `psql` 连接到 `cron.database_name` 指定的数据库（本例为 `ivorysql`），然后执行以下命令。
 [literal]
 ----
 ivorysql=# CREATE extension pg_cron;
