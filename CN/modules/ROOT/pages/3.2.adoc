@@ -524,16 +524,18 @@ SELECT pid, wait_event_type, wait_event FROM pg_stat_activity WHERE wait_event i
 
 ==== `pg_stat_subscription`
 
-每一个订阅的主工作者都在`pg_stat_subscription`视图中有一行（如果工作者没有运行则PID为空），处理被订阅表的初始数据拷贝操作的工作者还会有额外的行。
+`pg_stat_subscription` 为每个正在运行的订阅工作进程显示一行。没有运行中工作进程的订阅仍显示一行，工作进程列为 `NULL`。并行应用工作进程的 WAL 位置和消息时间列为 `NULL`。
 
 **表16.`pg_stat_subscription` 视图**
 |====
 |列|类型|描述
 |subid|oid|订阅的OID
 |subname|name|订阅的名称
-|pid|integer|订阅工作者进程的进程ID
-|relid|oid|工作器正在同步的关系的OID;Null用于主应用工作器
-|received_lsn|pg_lsn|接收到的最后一个预写式日志位置，该字段的初始值为0
+|worker_type|text|工作进程类型：`apply`、`parallel apply` 或 `table synchronization`
+|pid|integer|订阅工作进程的进程 ID
+|leader_pid|integer|并行应用工作进程所属的主应用工作进程 ID。其他工作进程此列为 `NULL`
+|relid|oid|表同步工作进程正在同步的关系 OID。主应用和并行应用工作进程此列为 `NULL`
+|received_lsn|pg_lsn|最近接收的 WAL 位置。没有有效位置时为 `NULL`
 |last_msg_send_time|timestamp with time zone|从WAL发送器收到的最后一条信息的发送时间
 |last_msg_receipt_time|timestamp with time zone|从WAL发送器收到的最后一条信息的接收时间
 |latest_end_lsn|pg_lsn|向WAL发送器报告的最后预写式日志位置

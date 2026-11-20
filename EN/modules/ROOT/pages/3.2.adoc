@@ -592,14 +592,18 @@ The `pg_stat_recovery_prefetch` view will contain only one row. The columns `wal
 
 ==== `pg_stat_subscription`
 
+The view shows one row per running subscription worker. A subscription with no running worker still has a row, with `NULL` in the worker columns. Parallel apply workers have `NULL` in the WAL position and message time columns.
+
 .**`pg_stat_subscription` View**
 |====
 | Column | Type | Description
 | `subid` | `oid` | OID of the subscription
 | `subname` | `name` | Name of the subscription
-| `pid` | `integer` | Process ID of the subscription worker process
-| `relid` | `oid` | OID of the relation that the worker is synchronizing; null for the main apply worker
-| `received_lsn` | `pg_lsn` | Last write-ahead log location received, the initial value of this field being 0
+| `worker_type` | `text` | Worker type: `apply`, `parallel apply`, or `table synchronization`
+| `pid` | `integer` | Process ID of the subscription worker
+| `leader_pid` | `integer` | PID of the leader apply worker for a parallel apply worker. `NULL` for other workers
+| `relid` | `oid` | OID of the relation a table synchronization worker is synchronizing. `NULL` for leader and parallel apply workers
+| `received_lsn` | `pg_lsn` | Most recent WAL location received, or `NULL` when no valid location is available
 | `last_msg_send_time` | `timestamp with time zone` | Send time of last message received from origin WAL sender
 | `last_msg_receipt_time` | `timestamp with time zone` | Receipt time of last message received from origin WAL sender
 | `latest_end_lsn` | `pg_lsn` | Last write-ahead log location reported to origin WAL sender
