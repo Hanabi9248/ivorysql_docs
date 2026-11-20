@@ -99,11 +99,11 @@ $ sudo yum --disablerepo=* localinstall *.rpm
 ** 安装依赖
 ```
 # CentOS
-$ sudo dnf install -y bison readline-devel zlib-devel openssl-devel uuid-devel
+$ sudo dnf install -y bison flex readline-devel zlib-devel openssl-devel uuid-devel libicu-devel
 $ sudo dnf groupinstall -y 'Development Tools'
 
 # Ubuntu
-$ sudo apt install -y bison libreadline-dev zlib1g-dev libssl-dev
+$ sudo apt install -y bison flex libreadline-dev zlib1g-dev libssl-dev libicu-dev
 $ sudo apt install -y build-essential
 $ sudo apt install -y pkg-config uuid-dev
 ```
