@@ -21,8 +21,8 @@ tar zxvf v4.5.tar.gz
 cd pgtt-4.5
 
 # 编译安装
-make PG_CONFIF=/path-to/ivorysql/bin/pg_config 
-make PG_CONFIF=/path-to/ivorysql/bin/pg_config install
+make PG_CONFIG=/path-to/ivorysql/bin/pg_config
+make PG_CONFIG=/path-to/ivorysql/bin/pg_config install
 ----
 
 == 创建Extension
