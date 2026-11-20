@@ -4105,7 +4105,7 @@ pg_rewind接受下列命令行参数：
 
 - `-n` `--dry-run`
 
-做除了实际修改目标目录之外的其他所有事情。
+预演回退操作时，跳过回退本身的文件修改。如果同时使用 `--restore-target-wal`，所需的 WAL 文件缺失时，`pg_rewind` 仍可调用目标集簇的 `restore_command`，并将归档的 WAL 文件恢复到目标集簇的 `pg_wal` 目录。
 
 - `-N` `--no-sync`
 

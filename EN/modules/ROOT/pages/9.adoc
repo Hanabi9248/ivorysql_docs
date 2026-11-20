@@ -3807,7 +3807,7 @@ Create `standby.signal` and append connection settings to `IvorySQL.auto.conf` i
 
 - `-n` `--dry-run`
 
-Do everything except actually modifying the target directory.
+Preview the rewind without applying its file changes. When `--restore-target-wal` is also specified and required WAL is missing, `pg_rewind` can still use the target cluster’s `restore_command` to restore WAL files into the target cluster’s `pg_wal` directory.
 
 - `-N` `--no-sync`
 
