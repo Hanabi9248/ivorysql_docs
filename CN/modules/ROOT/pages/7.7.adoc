@@ -238,6 +238,8 @@ END;
 
 === CREATE FUNCTION 语法支持 result_cache 子句
 
+对于使用 Oracle 语法创建的独立函数，`RESULT_CACHE` 和 `RESULT_CACHE RELIES_ON (...)` 仅用于语法兼容。IvorySQL 不会因这些子句缓存函数结果，也不会根据 `RELIES_ON` 中的对象建立缓存失效依赖。
+
 ```
 CREATE or replace FUNCTION ora_func RETURN integer
 SHARING = NONE AUTHID DEFINER

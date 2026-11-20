@@ -223,6 +223,9 @@ END;
 ```
 
 === Support result_cache clause in CREATE FUNCTION syntax 
+
+For standalone functions created with Oracle syntax, IvorySQL accepts `RESULT_CACHE` and `RESULT_CACHE RELIES_ON (...)` for syntax compatibility. These clauses do not cache function results or establish cache invalidation dependencies on the named objects.
+
 ```
 CREATE or replace FUNCTION ora_func RETURN integer
 SHARING = NONE AUTHID DEFINER
