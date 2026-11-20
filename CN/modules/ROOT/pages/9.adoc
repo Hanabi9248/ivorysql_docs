@@ -3890,11 +3890,11 @@ pg_ctl — 初始化、启动、停止或控制一个IvorySQL服务器
 
 - `-e *source*`
 
-作为一个 Windows 服务运行时，pg_ctl用来 在事件日志中记录日志的事件源的名称。默认是 `IvorySQL`。 注意这只控制由pg_ctl本身发送的消息，一旦开始， 服务器将使用 http://www.postgresql.org/docs/17/runtime-config-logging.html#GUC-EVENT-SOURCE[event_source] 参数中指定的事件源。如果服务器在启动时很早（在该参数被设置前）就失败，它可能也会使用默认的事件源名称  `IvorySQL` 来记录。
+作为一个 Windows 服务运行时，pg_ctl用来 在事件日志中记录日志的事件源的名称。默认是 `PostgreSQL`。 注意这只控制由pg_ctl本身发送的消息，一旦开始， 服务器将使用 http://www.postgresql.org/docs/17/runtime-config-logging.html#GUC-EVENT-SOURCE[event_source] 参数中指定的事件源。如果服务器在启动时很早（在该参数被设置前）就失败，它可能也会使用默认的事件源名称  `PostgreSQL` 来记录。
 
 - `-N *servicename*`
 
-要注册的系统服务的名称。这个名称将被用于服务名和显示名。默认是 `IvorySQL`。
+要注册的系统服务的名称。这个名称将被用于服务名和显示名。默认是 `PostgreSQL`。
 
 - `-P *password*`
 

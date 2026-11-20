@@ -3594,11 +3594,11 @@ If an option is specified that is valid, but not relevant to the selected operat
 
 - `-e *source*`
 
-Name of the event source for pg_ctl to use for logging to the event log when running as a Windows service. The default is `IvorySQL`. Note that this only controls messages sent from pg_ctl itself; once started, the server will use the event source specified by its http://www.postgresql.org/docs/17/runtime-config-logging.html#GUC-EVENT-SOURCE[event_source] parameter. Should the server fail very early in startup, before that parameter has been set, it might also log using the default event source name `IvorySQL`.
+Name of the event source for pg_ctl to use for logging to the event log when running as a Windows service. The default is `PostgreSQL`. Note that this only controls messages sent from pg_ctl itself; once started, the server will use the event source specified by its http://www.postgresql.org/docs/17/runtime-config-logging.html#GUC-EVENT-SOURCE[event_source] parameter. Should the server fail very early in startup, before that parameter has been set, it might also log using the default event source name `PostgreSQL`.
 
 - `-N *`servicename`*`
 
-Name of the system service to register. This name will be used as both the service name and the display name. The default is `IvorySQL`.
+Name of the system service to register. This name will be used as both the service name and the display name. The default is `PostgreSQL`.
 
 - `-P *`password`*`
 
