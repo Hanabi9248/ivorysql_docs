@@ -43,12 +43,12 @@ The DISCARD PACKAGE functionality is implemented for compatibility with PostgreS
 
 === Use \dk[+] in psql for package and package body information
 
-In psql, \dk[+] is used to view the definition information of packages and package bodies.
+In `psql`, either command accepts an optional `pattern` to filter packages. Add `+` to display package details.
 [cols="^1,^2"]
 |====
 | Command | Descriptions
-| \dk[+] | List the package information currently visible.
-| \dk[+] xxx | List the package specification and package body content of the xxx package.
+| `\dk [pattern]` | List each package's schema, name, and owner.
+| `\dk+ [pattern]` | Also show package properties, the specification, and the body when present.
 |====
 
 == Test cases
