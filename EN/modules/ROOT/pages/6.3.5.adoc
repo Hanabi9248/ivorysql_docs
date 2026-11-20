@@ -122,7 +122,7 @@ oratimestampltz_in()
 oratimestamptz_in()
 ```
 
-If the corresponding mask is set, the native PostgreSQL processing function is called; otherwise, the compatibility code is invoked, and NLS formats are ignored.
+When the bit for a datetime type is set, IvorySQL uses native PostgreSQL input parsing for that type. With the bit clear, IvorySQL parses input using the corresponding NLS format. Setting that format to `pg` also selects native parsing.
 
 === GUC Parameters `nls_date_format`/`nls_timestamp_format`/`nls_timestamp_tz_format`
 

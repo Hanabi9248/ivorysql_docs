@@ -127,7 +127,7 @@ oratimestampltz_in()
 oratimestamptz_in()
 ```
 
-如果相应的掩码被设置，则调用原生PG的处理函数，否则调用兼容代码并忽略NLS格式。
+某种日期时间类型对应的位设为 1 时，IvorySQL 使用 PostgreSQL 原生方式解析该类型的输入。该位为 0 时，IvorySQL 按对应的 NLS 格式解析输入。如果该格式设为 `pg`，则仍使用 PostgreSQL 原生解析。
 
 === GUC参数 `nls_date_format`/`nls_timestamp_format`/`nls_timestamp_tz_format`
 
