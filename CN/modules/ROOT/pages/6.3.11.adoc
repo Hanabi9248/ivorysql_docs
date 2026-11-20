@@ -9,6 +9,8 @@
 
 在Oracle数据库中，空字符串('')被视为NULL值，这是Oracle的一个重要特性。为了兼容Oracle的这一行为，IvorySQL提供了空字符串转NULL功能。当启用该功能后，SQL语句中的空字符串将自动转换为NULL值，从而保证Oracle应用程序在IvorySQL上的行为一致性。
 
+通过扩展查询协议执行语句时，如果会话使用 Oracle 解析器且启用了此参数，服务器会在处理 Bind 消息时将长度为零字节的参数值视为 SQL NULL。此判断发生在选择文本或二进制解码之前。
+
 == 实现说明
 
 参数 `ivorysql.enable_emptystring_to_NULL` 对应的GUC变量为 `enable_emptystring_to_NULL`。

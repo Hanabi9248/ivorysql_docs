@@ -9,6 +9,8 @@
 
 In Oracle databases, empty strings ('') are treated as NULL values, which is an important Oracle feature. To maintain compatibility with this Oracle behavior, IvorySQL provides the empty string to NULL conversion functionality. When this feature is enabled, empty strings in SQL statements are automatically converted to NULL values, ensuring behavioral consistency for Oracle applications running on IvorySQL.
 
+For statements executed through the extended query protocol, the server treats a zero-byte parameter value as SQL NULL when processing a Bind message if the session uses the Oracle parser and this setting is enabled. This happens before the server selects text or binary decoding.
+
 == Implementation
 
 The parameter `ivorysql.enable_emptystring_to_NULL` corresponds to the GUC variable `enable_emptystring_to_NULL`.
