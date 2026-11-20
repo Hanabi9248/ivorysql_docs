@@ -2297,6 +2297,10 @@ The following command-line options control the location and format of the output
 
 In `--start` mode, automatically stop replication and exit with normal exit status 0 when receiving reaches the specified LSN. If specified when not in `--start` mode, an error is raised.If there's a record with LSN exactly equal to *`lsn`*, the record will be output.The `--endpos` option is not aware of transaction boundaries and may truncate output partway through a transaction. Any partially output transaction will not be consumed and will be replayed again when the slot is next read from. Individual messages are never truncated.
 
+- `--enable-failover`
+
+Allow the new logical replication slot to be synchronized to standbys configured for slot synchronization. Use this option only with `--create-slot`. The client sends the failover setting only when the server reports version 17 or later.
+
 - `-f *filename*` `--file=*filename*`
 
 Write received and decoded transaction data into this file. Use `-` for stdout.
