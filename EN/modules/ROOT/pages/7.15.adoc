@@ -61,6 +61,7 @@ Use IvyHandleAlloc to allocate statement and error handles.
 Call IvyStmtPrepare to prepare the statement.
 Call IvyBindByPos or IvyBindByName to bind parameters.
 Call IvyStmtExecute to execute, which can be repeated.
+After each execution, check and process any non-null `Ivyresult *` returned by `IvyStmtExecute`, then call `Ivyclear` when you are done with that result.
 Call IvyFreeHandle to release the statement and error handles.
 
 Additionally, a series of interface functions have been implemented, including Ivyconnectdb, Ivystatus, Ivyexec, IvyresultStatus, IvyCreatePreparedStatement, IvybindOutParameterByPos, IvyexecPreparedStatement, IvyexecPreparedStatement2, Ivynfields, Ivyntuples, and Ivyclear.

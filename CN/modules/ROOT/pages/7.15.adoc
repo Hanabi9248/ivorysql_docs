@@ -61,6 +61,7 @@ libpq接口端提供准备、绑定、执行函数，这些函数与OCI相应函
 调用IvyStmtPrepare准备语句。
 调用IvyBindByPos或IvyBindByName 绑定参数。
 调用IvyStmtExecute 执行，可重复执行。
+每次执行后，检查并处理返回的非空 `Ivyresult *`，用完后调用 `Ivyclear` 释放该结果。
 调用IvyFreeHandle 释放语句句柄和错误句柄。
 
 另外还实现了Ivyconnectdb，Ivystatus，Ivyexec，IvyresultStatus，IvyCreatePreparedStatement，IvybindOutParameterByPos，IvyexecPreparedStatement，IvyexecPreparedStatement2，Ivynfields，Ivyntuples，Ivyclear等一系列接口函数。
