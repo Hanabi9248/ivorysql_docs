@@ -12,6 +12,8 @@
 
 === Three modes of case conversion (interchange by default)
 
+The following rules apply to ordinary double-quoted identifiers. Unicode-escaped identifiers written as `U&"..."` preserve the decoded case. For example, with `interchange` conversion active, `"abc"` becomes `ABC`, while `U&"\0061bc"` decodes to `abc`.
+
 - If the value of the guc parameter "identifier_case_switch" is "normal":
 
    	1). The letters in the identifier referenced by the double quotation mark are left unchanged.

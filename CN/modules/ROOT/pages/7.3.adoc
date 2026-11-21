@@ -12,6 +12,8 @@
 
 === 大小写转换的三种模式（默认为interchange）
 
+以下转换规则适用于用普通双引号括起的标识符。Unicode 转义标识符 `U&"..."` 在解码后保留大小写。例如，在 `interchange` 转换生效时，`"abc"` 转换为 `ABC`，而 `U&"\0061bc"` 解码为 `abc`。
+
 - 如果 guc参数“identifier_case_switch”值为“normal”
 
    1). 保持双引号所引用的标识符中的字母大小写不变。
